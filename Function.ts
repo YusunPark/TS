@@ -41,3 +41,35 @@ const push: Push = (config) => {
     console.log(config.path, config.state);
   }
 };
+
+// ------------------------------------------------
+// Polymorphism
+// generic = placeholder 같은 거임
+type SuperPrint = {
+  (arr: number[]): void;
+  (arr: boolean[]): void;
+  (arr: string[]): void;
+  (arr: (number | boolean)[]): void;
+};
+
+const superprint: SuperPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+
+superprint([1, 2, 3, 4]);
+superprint([true, false, true]);
+superprint([1, 2, true, false]);
+
+// 제네릭스 사용 : 다 쓸 수 있다.
+type SuperPrint2 = {
+  <T>(arr: T[]): void; // ts가 유추하도록 만드는것
+};
+
+const superprint2: SuperPrint2 = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+
+superprint2([1, 2, 3, 4]);
+superprint2([true, false, true]);
+superprint2([1, 2, true, false]);
+superprint2([1, 2, true, false, "ㅁㄴ"]);
