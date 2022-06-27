@@ -61,6 +61,7 @@ superprint([true, false, true]);
 superprint([1, 2, true, false]);
 
 // 제네릭스 사용 : 다 쓸 수 있다.
+
 type SuperPrint2 = {
   <T>(arr: T[]): void; // ts가 유추하도록 만드는것
 };
@@ -73,3 +74,17 @@ superprint2([1, 2, 3, 4]);
 superprint2([true, false, true]);
 superprint2([1, 2, true, false]);
 superprint2([1, 2, true, false, "ㅁㄴ"]);
+
+// ------------------------------------------------
+// Generics Recap
+//any와의 차이점은 해당 타입에 대한 정보를 잃지 않는다.
+//any는 any로서 밖에 알 수 없지만 generics는 타입 정보를 알 수 있다.
+type SuperPrint3 = (arr: any[]) => void; // ts가 유추하도록 만드는것
+const superprint3: SuperPrint3 = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+
+superprint3([1, 2, 3, 4]);
+superprint3([true, false, true]);
+superprint3([1, 2, true, false]);
+superprint3([1, 2, true, false, "ㅁㄴ"]);
